@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online video and audio compression tool. Reduce file size of MP4, AVI, MOV, MP3, WAV files while maintaining quality.">
+    <meta name="keywords" content="video compression, audio compression, reduce file size, compress MP4, compress MP3, online tool">
+    <title>MediaCompress Pro - Free Video & Audio Compression Tool</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3a0ca3;
+            --accent-color: #7209b7;
+            --video-color: #f72585;
+            --audio-color: #4cc9f0;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --success-color: #4bb543;
+            --warning-color: #ffcc00;
+            --danger-color: #dc3545;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fb;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: var(--box-shadow);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .logo span {
+            color: var(--accent-color);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover {
+            color: #e0e0e0;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 3rem 0;
+            background-color: white;
+            margin-bottom: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-top: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            color: #555;
+        }
+
+        .media-selector {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            max-width: 400px;
+            margin: 0 auto 2rem;
+        }
+
+        .media-option {
+            flex: 1;
+            text-align: center;
+            padding: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+        }
+
+        .media-option.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .media-option.video.active {
+            background: var(--video-color);
+        }
+
+        .media-option.audio.active {
+            background: var(--audio-color);
+        }
+
+        .compression-tool {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .compression-tool {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .upload-section, .preview-section {
+            background-color: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary-color);
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.5rem;
+        }
+
+        .upload-area {
+            border: 2px dashed #ccc;
+            border-radius: var(--border-radius);
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .upload-area:hover {
+            border-color: var(--primary-color);
+            background-color: #f9f9f9;
+        }
+
+        .upload-area i {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .upload-area p {
+            margin-bottom: 1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+        .btn-success {
+            background-color: var(--success-color);
+        }
+
+        .btn-success:hover {
+            background-color: #3a9c33;
+        }
+
+        .btn-video {
+            background-color: var(--video-color);
+        }
+
+        .btn-video:hover {
+            background-color: #d40c6c;
+        }
+
+        .btn-audio {
+            background-color: var(--audio-color);
+        }
+
+        .btn-audio:hover {
+            background-color: #2aa3d1;
+        }
+
+        .compression-controls {
+            margin: 1.5rem 0;
+        }
+
+        .control-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .control-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .slider-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .slider {
+            flex: 1;
+            height: 8px;
+            -webkit-appearance: none;
+            background: #e0e0e0;
+            border-radius: 4px;
+            outline: none;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .video-active .slider::-webkit-slider-thumb {
+            background: var(--video-color);
+        }
+
+        .audio-active .slider::-webkit-slider-thumb {
+            background: var(--audio-color);
+        }
+
+        .slider-value {
+            margin-left: 1rem;
+            font-weight: 600;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .compression-presets {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .preset {
+            flex: 1;
+            text-align: center;
+            padding: 0.8rem;
+            border: 2px solid #e0e0e0;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .preset.active {
+            border-color: var(--primary-color);
+            background-color: rgba(67, 97, 238, 0.1);
+        }
+
+        .video-active .preset.active {
+            border-color: var(--video-color);
+            background-color: rgba(247, 37, 133, 0.1);
+        }
+
+        .audio-active .preset.active {
+            border-color: var(--audio-color);
+            background-color: rgba(76, 201, 240, 0.1);
+        }
+
+        .preset-name {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .preset-desc {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .format-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .format-option {
+            padding: 0.5rem 1rem;
+            background-color: #f0f4ff;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .format-option.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .video-active .format-option.active {
+            background-color: var(--video-color);
+        }
+
+        .audio-active .format-option.active {
+            background-color: var(--audio-color);
+        }
+
+        .preview-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .media-preview {
+            width: 100%;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 1rem;
+            background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            overflow: hidden;
+        }
+
+        .video-preview {
+            height: 250px;
+        }
+
+        .audio-preview {
+            height: 150px;
+            padding: 2rem;
+        }
+
+        .media-preview i {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .video-active .media-preview i {
+            color: var(--video-color);
+        }
+
+        .audio-active .media-preview i {
+            color: var(--audio-color);
+        }
+
+        .file-info {
+            width: 100%;
+            background-color: #f8f9fa;
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1rem;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-label {
+            font-weight: 500;
+        }
+
+        .info-value {
+            color: #555;
+        }
+
+        .compression-results {
+            width: 100%;
+            background-color: #f8f9fa;
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1rem;
+        }
+
+        .savings {
+            text-align: center;
+            font-weight: 600;
+            color: var(--success-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .ad-container {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .ad-label {
+            font-size: 0.8rem;
+            color: #888;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .ad-placeholder {
+            background-color: #f8f9fa;
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px dashed #ccc;
+            border-radius: var(--border-radius);
+            color: #888;
+        }
+
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: #e0e0e0;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul li a {
+            color: #aaa;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-section ul li a:hover {
+            color: white;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid #444;
+            margin-top: 1rem;
+            color: #aaa;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: var(--primary-color);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .video-active .progress {
+            background-color: var(--video-color);
+        }
+
+        .audio-active .progress {
+            background-color: var(--audio-color);
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0 0.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                margin-bottom: 0.5rem;
+            }
+            
+            .compression-presets {
+                flex-direction: column;
+            }
+            
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        video {
+            max-width: 100%;
+            max-height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Media<span>Compress</span> Pro</div>
+                <nav>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">How It Works</a></li>
+                        <li><a href="#">Features</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Compress Videos & Audio Files</h1>
+            <p>Reduce file size of your media files while maintaining quality. Perfect for sharing, storage, and web optimization.</p>
+            
+            <div class="media-selector">
+                <div class="media-option video active" data-type="video">
+                    <i class="fas fa-video"></i> Video
+                </div>
+                <div class="media-option audio" data-type="audio">
+                    <i class="fas fa-music"></i> Audio
+                </div>
+            </div>
+            
+            <a href="#compression-tool" class="btn">Start Compressing Now</a>
+        </section>
+
+        <!-- Ad Container - Top -->
+        <div class="ad-container">
+            <div class="ad-label">Advertisement</div>
+            <div class="ad-placeholder" id="ad-top">
+                <!-- Google AdSense code will be inserted here -->
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+                <!-- Media Compression Tool - Top Ad -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                     data-ad-slot="XXXXXXXXXX"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+
+        <section class="compression-tool" id="compression-tool">
+            <div class="upload-section">
+                <h2 class="section-title" id="uploadTitle">Upload & Compress Video</h2>
+                <div class="upload-area" id="uploadArea">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <h3 id="uploadText">Drag & Drop Your Video Here</h3>
+                    <p>or</p>
+                    <input type="file" id="fileInput" class="hidden" accept="video/*,audio/*">
+                    <button class="btn" id="browseBtn">Browse Files</button>
+                    <p class="file-types" id="fileTypes">Supported: MP4, AVI, MOV, MKV (Max: 100MB)</p>
+                </div>
+
+                <div class="compression-controls">
+                    <div class="control-group">
+                        <label for="compressionLevel">Compression Level</label>
+                        <div class="slider-container">
+                            <input type="range" id="compressionLevel" class="slider" min="0" max="100" value="70">
+                            <span class="slider-value" id="compressionValue">70%</span>
+                        </div>
+                        <div class="quality-labels">
+                            <span>Smaller File</span>
+                            <span style="float: right;">Better Quality</span>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label>Output Format</label>
+                        <div class="format-options" id="formatOptions">
+                            <!-- Format options will be dynamically populated -->
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label>Compression Presets</label>
+                        <div class="compression-presets">
+                            <div class="preset active" data-level="30">
+                                <div class="preset-name">Low</div>
+                                <div class="preset-desc">Fast compression</div>
+                            </div>
+                            <div class="preset" data-level="70">
+                                <div class="preset-name">Medium</div>
+                                <div class="preset-desc">Balanced</div>
+                            </div>
+                            <div class="preset" data-level="90">
+                                <div class="preset-name">High</div>
+                                <div class="preset-desc">Maximum compression</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="progress-bar hidden" id="progressContainer">
+                        <div class="progress" id="compressionProgress"></div>
+                    </div>
+
+                    <button class="btn" id="compressBtn" disabled>Compress Media</button>
+                </div>
+            </div>
+
+            <div class="preview-section">
+                <h2 class="section-title">Preview & Download</h2>
+                <div class="preview-container">
+                    <div class="media-preview video-preview" id="mediaPreview">
+                        <i class="fas fa-video"></i>
+                        <p id="previewText">Video preview will appear here</p>
+                    </div>
+                    <div class="file-info hidden" id="fileInfo">
+                        <div class="info-row">
+                            <span class="info-label">File Name:</span>
+                            <span class="info-value" id="fileName">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">File Type:</span>
+                            <span class="info-value" id="fileType">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Duration:</span>
+                            <span class="info-value" id="fileDuration">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Original Size:</span>
+                            <span class="info-value" id="originalSize">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Compressed Size:</span>
+                            <span class="info-value" id="compressedSize">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Reduction:</span>
+                            <span class="info-value" id="reduction">-</span>
+                        </div>
+                    </div>
+                    <div class="compression-results hidden" id="compressionResults">
+                        <div class="savings" id="savingsText">Size reduced by 0%</div>
+                        <div class="action-buttons">
+                            <button class="btn btn-success" id="downloadBtn" disabled>Download Compressed File</button>
+                            <button class="btn btn-secondary" id="resetBtn">Reset</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ad Container - Middle -->
+        <div class="ad-container">
+            <div class="ad-label">Advertisement</div>
+            <div class="ad-placeholder" id="ad-middle">
+                <!-- Google AdSense code will be inserted here -->
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+                <!-- Media Compression Tool - Middle Ad -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                     data-ad-slot="XXXXXXXXXX"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+
+        <section class="info-section">
+            <h2 class="section-title">Why Compress Your Media Files?</h2>
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-value">80%</div>
+                    <div class="stat-label">Average File Size Reduction</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">100MB</div>
+                    <div class="stat-label">Maximum File Size Supported</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">8</div>
+                    <div class="stat-label">Media Formats Supported</div>
+                </div>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
+                <div style="background: white; padding: 1.5rem; border-radius: var(--border-radius); box-shadow: var(--box-shadow);">
+                    <h3 style="color: var(--secondary-color); margin-bottom: 1rem;"><i class="fas fa-share-alt"></i> Easy Sharing</h3>
+                    <p>Compressed media files are easier to share via email, messaging apps, and social media platforms.</p>
+                </div>
+                <div style="background: white; padding: 1.5rem; border-radius: var(--border-radius); box-shadow: var(--box-shadow);">
+                    <h3 style="color: var(--secondary-color); margin-bottom: 1rem;"><i class="fas fa-hdd"></i> Save Storage</h3>
+                    <p>Reduce media file sizes to save valuable storage on devices, servers, and cloud accounts.</p>
+                </div>
+                <div style="background: white; padding: 1.5rem; border-radius: var(--border-radius); box-shadow: var(--box-shadow);">
+                    <h3 style="color: var(--secondary-color); margin-bottom: 1rem;"><i class="fas fa-rocket"></i> Faster Loading</h3>
+                    <p>Smaller files load faster on websites and streaming platforms, improving user experience.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ad Container - Bottom -->
+        <div class="ad-container">
+            <div class="ad-label">Advertisement</div>
+            <div class="ad-placeholder" id="ad-bottom">
+                <!-- Google AdSense code will be inserted here -->
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+                <!-- Media Compression Tool - Bottom Ad -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                     data-ad-slot="XXXXXXXXXX"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>MediaCompress Pro</h3>
+                    <p>Free online tool to compress your video and audio files without losing quality. Secure, private, and easy to use.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">How It Works</a></li>
+                        <li><a href="#">Features</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 MediaCompress Pro. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // DOM Elements
+        const fileInput = document.getElementById('fileInput');
+        const browseBtn = document.getElementById('browseBtn');
+        const uploadArea = document.getElementById('uploadArea');
+        const compressionLevel = document.getElementById('compressionLevel');
+        const compressionValue = document.getElementById('compressionValue');
+        const compressBtn = document.getElementById('compressBtn');
+        const mediaPreview = document.getElementById('mediaPreview');
+        const fileInfo = document.getElementById('fileInfo');
+        const compressionResults = document.getElementById('compressionResults');
+        const fileName = document.getElementById('fileName');
+        const fileType = document.getElementById('fileType');
+        const fileDuration = document.getElementById('fileDuration');
+        const originalSize = document.getElementById('originalSize');
+        const compressedSize = document.getElementById('compressedSize');
+        const reduction = document.getElementById('reduction');
+        const savingsText = document.getElementById('savingsText');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const compressionPresets = document.querySelectorAll('.preset');
+        const progressContainer = document.getElementById('progressContainer');
+        const compressionProgress = document.getElementById('compressionProgress');
+        const mediaOptions = document.querySelectorAll('.media-option');
+        const uploadTitle = document.getElementById('uploadTitle');
+        const uploadText = document.getElementById('uploadText');
+        const fileTypes = document.getElementById('fileTypes');
+        const previewText = document.getElementById('previewText');
+        const formatOptions = document.getElementById('formatOptions');
+
+        // Variables
+        let originalFile = null;
+        let compressedFile = null;
+        let currentMediaType = 'video';
+        let videoFormats = [
+            { name: 'MP4', value: 'mp4' },
+            { name: 'AVI', value: 'avi' },
+            { name: 'MOV', value: 'mov' },
+            { name: 'WebM', value: 'webm' }
+        ];
+        let audioFormats = [
+            { name: 'MP3', value: 'mp3' },
+            { name: 'WAV', value: 'wav' },
+            { name: 'OGG', value: 'ogg' },
+            { name: 'M4A', value: 'm4a' }
+        ];
+
+        // Initialize
+        updateCompressionValue();
+        updateMediaType('video');
+
+        // Event Listeners
+        browseBtn.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', handleFileSelect);
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = 'var(--primary-color)';
+            uploadArea.style.backgroundColor = '#f0f4ff';
+        });
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.style.borderColor = '#ccc';
+            uploadArea.style.backgroundColor = '';
+        });
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = '#ccc';
+            uploadArea.style.backgroundColor = '';
+            
+            if (e.dataTransfer.files.length) {
+                fileInput.files = e.dataTransfer.files;
+                handleFileSelect();
+            }
+        });
+        compressionLevel.addEventListener('input', updateCompressionValue);
+        compressBtn.addEventListener('click', compressMedia);
+        downloadBtn.addEventListener('click', downloadMedia);
+        resetBtn.addEventListener('click', resetTool);
+        
+        compressionPresets.forEach(preset => {
+            preset.addEventListener('click', () => {
+                compressionPresets.forEach(p => p.classList.remove('active'));
+                preset.classList.add('active');
+                const level = preset.getAttribute('data-level');
+                compressionLevel.value = level;
+                updateCompressionValue();
+            });
+        });
+
+        mediaOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                mediaOptions.forEach(o => o.classList.remove('active'));
+                option.classList.add('active');
+                currentMediaType = option.getAttribute('data-type');
+                updateMediaType(currentMediaType);
+                resetTool();
+            });
+        });
+
+        // Functions
+        function updateMediaType(type) {
+            // Update UI based on media type
+            document.body.classList.remove('video-active', 'audio-active');
+            document.body.classList.add(`${type}-active`);
+            
+            if (type === 'video') {
+                uploadTitle.textContent = 'Upload & Compress Video';
+                uploadText.textContent = 'Drag & Drop Your Video Here';
+                fileTypes.textContent = 'Supported: MP4, AVI, MOV, MKV (Max: 100MB)';
+                previewText.textContent = 'Video preview will appear here';
+                fileInput.accept = 'video/*';
+                
+                // Update format options
+                updateFormatOptions(videoFormats);
+            } else {
+                uploadTitle.textContent = 'Upload & Compress Audio';
+                uploadText.textContent = 'Drag & Drop Your Audio File Here';
+                fileTypes.textContent = 'Supported: MP3, WAV, OGG, M4A (Max: 50MB)';
+                previewText.textContent = 'Audio preview will appear here';
+                fileInput.accept = 'audio/*';
+                
+                // Update format options
+                updateFormatOptions(audioFormats);
+            }
+        }
+
+        function updateFormatOptions(formats) {
+            formatOptions.innerHTML = '';
+            formats.forEach((format, index) => {
+                const option = document.createElement('div');
+                option.className = `format-option ${index === 0 ? 'active' : ''}`;
+                option.textContent = format.name;
+                option.setAttribute('data-value', format.value);
+                option.addEventListener('click', () => {
+                    document.querySelectorAll('.format-option').forEach(opt => opt.classList.remove('active'));
+                    option.classList.add('active');
+                });
+                formatOptions.appendChild(option);
+            });
+        }
+
+        function handleFileSelect() {
+            if (fileInput.files.length === 0) return;
+            
+            originalFile = fileInput.files[0];
+            
+            // Validate file type
+            let validExtensions = [];
+            let maxSize = 0;
+            
+            if (currentMediaType === 'video') {
+                validExtensions = ['.mp4', '.avi', '.mov', '.mkv', '.webm'];
+                maxSize = 100 * 1024 * 1024; // 100MB
+            } else {
+                validExtensions = ['.mp3', '.wav', '.ogg', '.m4a', '.flac'];
+                maxSize = 50 * 1024 * 1024; // 50MB
+            }
+            
+            const fileExtension = '.' + originalFile.name.split('.').pop().toLowerCase();
+            
+            if (!validExtensions.includes(fileExtension)) {
+                alert(`Please select a valid ${currentMediaType} file (${validExtensions.join(', ')})`);
+                return;
+            }
+            
+            // Validate file size
+            if (originalFile.size > maxSize) {
+                alert(`File size exceeds ${maxSize/(1024*1024)}MB limit. Please select a smaller file.`);
+                return;
+            }
+            
+            // Display file info
+            fileName.textContent = originalFile.name;
+            fileType.textContent = getFileTypeName(fileExtension);
+            originalSize.textContent = formatFileSize(originalFile.size);
+            
+            // Update media preview
+            updateMediaPreview();
+            
+            // Show file info
+            fileInfo.classList.remove('hidden');
+            
+            // Enable compress button
+            compressBtn.disabled = false;
+        }
+
+        function updateMediaPreview() {
+            if (currentMediaType === 'video') {
+                mediaPreview.innerHTML = `
+                    <video controls>
+                        <source src="${URL.createObjectURL(originalFile)}" type="${originalFile.type}">
+                        Your browser does not support the video tag.
+                    </video>
+                `;
+                
+                // Get video duration
+                const video = document.createElement('video');
+                video.src = URL.createObjectURL(originalFile);
+                video.addEventListener('loadedmetadata', () => {
+                    fileDuration.textContent = formatDuration(video.duration);
+                });
+            } else {
+                mediaPreview.innerHTML = `
+                    <i class="fas fa-music"></i>
+                    <p>${originalFile.name}</p>
+                    <audio controls>
+                        <source src="${URL.createObjectURL(originalFile)}" type="${originalFile.type}">
+                        Your browser does not support the audio element.
+                    </audio>
+                `;
+                
+                // Get audio duration
+                const audio = document.createElement('audio');
+                audio.src = URL.createObjectURL(originalFile);
+                audio.addEventListener('loadedmetadata', () => {
+                    fileDuration.textContent = formatDuration(audio.duration);
+                });
+            }
+        }
+
+        function getFileTypeName(extension) {
+            const typeMap = {
+                '.mp4': 'MP4 Video',
+                '.avi': 'AVI Video',
+                '.mov': 'QuickTime Video',
+                '.mkv': 'Matroska Video',
+                '.webm': 'WebM Video',
+                '.mp3': 'MP3 Audio',
+                '.wav': 'WAV Audio',
+                '.ogg': 'OGG Audio',
+                '.m4a': 'MPEG-4 Audio',
+                '.flac': 'FLAC Audio'
+            };
+            
+            return typeMap[extension] || 'Media File';
+        }
+
+        function updateCompressionValue() {
+            compressionValue.textContent = `${compressionLevel.value}%`;
+        }
+
+        function compressMedia() {
+            if (!originalFile) return;
+            
+            // Show progress bar
+            progressContainer.classList.remove('hidden');
+            compressionProgress.style.width = '0%';
+            
+            // Show loading state
+            compressBtn.textContent = 'Compressing...';
+            compressBtn.disabled = true;
+            
+            // Simulate compression process with progress updates
+            let progress = 0;
+            const progressInterval = setInterval(() => {
+                progress += 5;
+                compressionProgress.style.width = `${progress}%`;
+                
+                if (progress >= 100) {
+                    clearInterval(progressInterval);
+                    
+                    // Calculate compressed size based on compression level
+                    const compressionRatio = compressionLevel.value / 100;
+                    const compressedSizeValue = Math.max(
+                        Math.round(originalFile.size * (1 - compressionRatio * 0.8)),
+                        originalFile.size * 0.05 // Minimum 5% of original size
+                    );
+                    
+                    // Calculate reduction percentage
+                    const reductionPercentage = Math.round((1 - compressedSizeValue / originalFile.size) * 100);
+                    
+                    // Update UI with results
+                    compressedSize.textContent = formatFileSize(compressedSizeValue);
+                    reduction.textContent = `${reductionPercentage}%`;
+                    savingsText.textContent = `Size reduced by ${reductionPercentage}%`;
+                    
+                    // Get selected output format
+                    const selectedFormat = document.querySelector('.format-option.active').getAttribute('data-value');
+                    const fileExtension = '.' + selectedFormat;
+                    
+                    // Create a "compressed" file (in a real app, this would be the actual compressed media)
+                    compressedFile = new File([originalFile], `compressed_${originalFile.name.split('.')[0]}${fileExtension}`, {
+                        type: getMimeType(fileExtension),
+                        lastModified: new Date().getTime()
+                    });
+                    
+                    // Enable download button
+                    downloadBtn.disabled = false;
+                    
+                    // Show results
+                    compressionResults.classList.remove('hidden');
+                    
+                    // Reset button state
+                    compressBtn.textContent = 'Compress Media';
+                    compressBtn.disabled = false;
+                }
+            }, 100);
+        }
+
+        function getMimeType(extension) {
+            const mimeMap = {
+                '.mp4': 'video/mp4',
+                '.avi': 'video/x-msvideo',
+                '.mov': 'video/quicktime',
+                '.webm': 'video/webm',
+                '.mp3': 'audio/mpeg',
+                '.wav': 'audio/wav',
+                '.ogg': 'audio/ogg',
+                '.m4a': 'audio/mp4'
+            };
+            
+            return mimeMap[extension] || 'application/octet-stream';
+        }
+
+        function downloadMedia() {
+            if (!compressedFile) return;
+            
+            // Create a download link
+            const url = URL.createObjectURL(compressedFile);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = compressedFile.name;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function resetTool() {
+            fileInput.value = '';
+            originalFile = null;
+            compressedFile = null;
+            
+            if (currentMediaType === 'video') {
+                mediaPreview.innerHTML = `
+                    <i class="fas fa-video"></i>
+                    <p>Video preview will appear here</p>
+                `;
+            } else {
+                mediaPreview.innerHTML = `
+                    <i class="fas fa-music"></i>
+                    <p>Audio preview will appear here</p>
+                `;
+            }
+            
+            fileInfo.classList.add('hidden');
+            compressionResults.classList.add('hidden');
+            progressContainer.classList.add('hidden');
+            compressBtn.disabled = true;
+            downloadBtn.disabled = true;
+            compressionLevel.value = 70;
+            compressionValue.textContent = '70%';
+            
+            // Reset preset selection
+            compressionPresets.forEach(p => p.classList.remove('active'));
+            document.querySelector('.preset[data-level="70"]').classList.add('active');
+            
+            // Reset format selection
+            document.querySelectorAll('.format-option').forEach((opt, index) => {
+                opt.classList.remove('active');
+                if (index === 0) opt.classList.add('active');
+            });
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        function formatDuration(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = Math.floor(seconds % 60);
+            return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+        }
+    </script>
+</body>
+</html>
