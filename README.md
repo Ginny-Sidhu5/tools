@@ -309,4 +309,4 @@ User interface animations
 
 Note: This README will be updated as new features are added to the website. For the latest information, always check the live website documentation.
 
-For questions or support, please contact: support@freetoolkit.com
+
